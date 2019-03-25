@@ -32,7 +32,7 @@ let blogArray = [
 	id: f,
 	title: "Learn to translate in 7 days",
 	content: "Article 3",
-	author: " Daniel",
+	author: "Daniel",
 	publishDate: c
 					}
 				];
@@ -46,22 +46,38 @@ let blogArray = [
 });			
 
 app.get('/blog-posts/:author', (req, res) => {
-/*	let Tauthor = req.params.author;
-
+	if(req.params.author){
+	let Tauthor = req.params.author;
+	let Blogs = [];
+	let empty = true;
+ 
 	blogArray.forEach(item => {
 		if (item.author == Tauthor){
-			res.status(200).json({
-				message : "Successfully sent the blog by the author",
-				status : 200,
-				sport : item
-			});
+			empty = false;
+			Blogs.push(item);
 		}
 	});
-*/
+	if(empty){
 	res.status(404).json({
 		message : "Author not found in the list",
 		status : 404
 	});
+				}
+else
+	res.status(200).json({
+				message : "Successfully sent the blog by the author",
+				status : 200,
+				Blogs : Blogs
+			});
+
+	
+} else
+res.status(404).json({
+		message : "No author sent",
+		status : 404
+	});
+
+
 });	
 
 
