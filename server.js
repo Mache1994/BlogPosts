@@ -171,6 +171,73 @@ res.status(406).json({
 
 });
 
+// put
+
+app.put('/blog-posts/:id',jsonParser,(req,res) =>{
+if(req.params.id){
+let Id1 = req.params.id;
+let requiredFields = ['id'];
+ for (let i=0; i<requiredFields.length; i++)
+ {
+ 	let currentField = requiredFields[i];
+
+ 	if(!(currentField in req.body)){
+
+	res.status(400).json({
+		message: " Mising iD",
+		status: 400
+		});
+
+ 	}
+
+
+ }
+
+ let Id2 = req.body.id;
+
+if (Id1 == Id2){
+ blogArray.forEach((item,index) =>{
+ 	if (item.id == Id1){
+
+ 			if (req.body.title)
+ 			blogArray[index].title = req.body.title
+			if (req.body.content)
+ 			blogArray[index].content = req.body.content
+ 			if (req.body.Author)
+ 			blogArray[index].author = req.body.Author
+ 			if (req.body.Date)
+ 			blogArray[index].publishDate = req.body.Date
+
+
+	res.status(200).json({
+		message: " object updated",
+		status: 200
+		});
+ 	}
+
+
+ });
+}
+else
+	res.status(400).json({
+		message: "parameters dont match",
+		status: 400
+		});
+
+res.status(404).json({
+		message: "object not found",
+		status: 404
+		});
+
+}
+else
+res.status(406).json({
+		message: "mising argument",
+		status: 406
+		});
+
+});
+
 
 
 
