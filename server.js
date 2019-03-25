@@ -45,6 +45,24 @@ let blogArray = [
 	});
 });			
 
+app.get('/blog-posts/:author', (req, res) => {
+/*	let Tauthor = req.params.author;
+
+	blogArray.forEach(item => {
+		if (item.author == Tauthor){
+			res.status(200).json({
+				message : "Successfully sent the blog by the author",
+				status : 200,
+				sport : item
+			});
+		}
+	});
+*/
+	res.status(404).json({
+		message : "Author not found in the list",
+		status : 404
+	});
+});	
 
 
 
