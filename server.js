@@ -62,7 +62,7 @@ app.get('/blog-posts/:author', (req, res) => {
 		message : "Author not found in the list",
 		status : 404
 	});
-				}
+	}
 else
 	res.status(200).json({
 				message : "Successfully sent the blog by the author",
@@ -115,6 +115,61 @@ app.post('/post-blog', jsonParser, (req, res, next) => {
 });
 
 //
+
+app.delete('/delete-blog/:id',jsonParser,(req,res) =>{
+if(req.params.id){
+let Id1 = req.params.id;
+let requiredFields = ['id'];
+ for (let i=0; i<requiredFields.length; i++)
+ {
+ 	let currentField = requiredFields[i];
+
+ 	if(!(currentField in req.body)){
+
+	res.status(400).json({
+		message: " Mising iD",
+		status: 400
+		});
+
+ 	}
+
+
+ }
+
+ let Id2 = req.body.id;
+
+if (Id1 == Id2){
+ blogArray.forEach((item,index) =>{
+ 	if (item.id == Id1){
+ 		blogArray.splice(index,1)
+	res.status(202).json({
+		message: " object deleted",
+		status: 202
+		});
+ 	}
+
+
+ });
+}
+else
+	res.status(400).json({
+		message: "parameters dont match",
+		status: 400
+		});
+
+res.status(404).json({
+		message: "object not found",
+		status: 404
+		});
+
+}
+else
+res.status(406).json({
+		message: "mising argument",
+		status: 406
+		});
+
+});
 
 
 
