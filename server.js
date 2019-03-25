@@ -80,8 +80,47 @@ res.status(404).json({
 
 });	
 
+//post
+app.post('/post-blog', jsonParser, (req, res, next) => {
+	
+	let requiredFields = ['title', 'content','Author','Date'];
+
+	for ( let i = 0; i < requiredFields.length; i ++){
+		let currentField = requiredFields[i];
+
+		if (! (currentField in req.body)){
+			res.status(406).json({
+				message : `Missing field ${currentField} in body.`,
+				status : 406
+			}).send("Finish");
+		}
+	}
+	var H = uuidv4();
+
+	let objectToAdd = {
+			id: H,
+			title: req.body.title,
+			content: req.body.content,
+			author: req.body.Author,
+			publishDate: req.body.Date
+	
+	};
+
+	blogArray.push(objectToAdd);
+	res.status(201).json({
+		message : "Successfully added the blog",
+		status : 201,
+		sport : objectToAdd
+	});
+});
+
+//
 
 
+
+
+
+//Listen
 app.listen(8080, () => {
 	console.log('Your app is running in port 8080');
 });
